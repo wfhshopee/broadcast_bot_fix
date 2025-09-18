@@ -1,15 +1,12 @@
+from telethon import TelegramClient
 import os
-from telethon import TelegramClient, events
 
 api_id = int(os.getenv("API_ID"))
 api_hash = os.getenv("API_HASH")
+bot_token = os.getenv("BOT_TOKEN")  # masukkan bot token di env variable
 
-client = TelegramClient("broadcast_bot", api_id, api_hash)
+client = TelegramClient('bot_session', api_id, api_hash)
 
-@client.on(events.NewMessage(pattern=r"^/start"))
-async def handler(event):
-    await event.respond("Bot sudah aktif di Railway!")
+client.start(bot_token=bot_token)  # start menggunakan token bot langsung
 
 print("Bot berjalan...")
-client.start()
-client.run_until_disconnected()
